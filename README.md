@@ -1,4 +1,4 @@
-# test-automation-playwright-synpress
+# Dummy project for reproduction of an issue related to Synpress library with Playwright
 
 For reproduction of running the tests and reproduction of the issue:
 
