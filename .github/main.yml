@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  dummy-test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run Playwright tests
+        run: npx playwright test
+        env:
+          ENVIRONMENT_URL: ${{ secrets.ENVIRONMENT_URL }}
+          HEADLESS_MODE: ${{secrets.HEADLESS_MODE}}
+          METAMASK_SETUP_NETWORK: ${{secrets.METAMASK_SETUP_NETWORK}}
+          METAMASK_SETUP_PASSWORD: ${{secrets.METAMASK_SETUP_PASSWORD}}
+          METAMASK_SETUP_PRIVATE_KEY: ${{secrets.METAMASK_SETUP_PRIVATE_KEY}}
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
