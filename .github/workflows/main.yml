@@ -22,12 +22,6 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run Playwright tests
         run: npx playwright test
-        env:
-          ENVIRONMENT_URL: ${{ secrets.ENVIRONMENT_URL }}
-          HEADLESS_MODE: ${{secrets.HEADLESS_MODE}}
-          METAMASK_SETUP_NETWORK: ${{secrets.METAMASK_SETUP_NETWORK}}
-          METAMASK_SETUP_PASSWORD: ${{secrets.METAMASK_SETUP_PASSWORD}}
-          METAMASK_SETUP_PRIVATE_KEY: ${{secrets.METAMASK_SETUP_PRIVATE_KEY}}
       - uses: actions/upload-artifact@v3
         if: always()
         with:
