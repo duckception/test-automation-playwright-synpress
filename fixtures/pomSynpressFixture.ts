@@ -10,23 +10,9 @@ interface pagesAndContext {
   context: BrowserContext;
 }
 
-let privateKey: string;
-let network: string;
-let password: string;
-
-if (
-  process.env.METAMASK_SETUP_PRIVATE_KEY != null &&
-  process.env.METAMASK_SETUP_NETWORK != null &&
-  process.env.METAMASK_SETUP_PASSWORD != null
-) {
-  privateKey = process.env.METAMASK_SETUP_PRIVATE_KEY;
-  network = process.env.METAMASK_SETUP_NETWORK;
-  password = process.env.METAMASK_SETUP_PASSWORD;
-} else {
-  throw new Error(
-    'One or more of required Metamask setup environment variables is not set',
-  );
-}
+const privateKey = 'c888612ef09327ddd49abf2356c1f75abb88c516672bd2f6635d37a89a10a42a'
+const network = 'polygon'
+const password = 'test123test123'
 
 export const test = base.extend<pagesAndContext>({
   // eslint-disable-next-line no-empty-pattern
