@@ -10,7 +10,7 @@ interface pagesAndContext {
   context: BrowserContext;
 }
 
-const privateKey = 'test test test test test test test test test test test junk'
+const privateKey = 'c888612ef09327ddd49abf2356c1f75abb88c516672bd2f6635d37a89a10a42a'
 const network = 'polygon'
 const password = 'test123test123'
 
@@ -19,49 +19,36 @@ export const test = base.extend<pagesAndContext>({
   context: async ({}, use) => {
     // required for synpress as it shares same expect instance as playwright
     await setExpectInstance(expect);
-
     // download metamask
-    const metamaskPath = await prepareMetamask(
-      process.env.METAMASK_VERSION || "10.25.0"
+    const metamaskPath: string = await prepareMetamask(
+      process.env.METAMASK_VERSION != null || '10.25.0',
     );
-
     // prepare browser args
     const browserArgs = [
       `--disable-extensions-except=${metamaskPath}`,
       `--load-extension=${metamaskPath}`,
-      "--remote-debugging-port=9222",
+      '--remote-debugging-port=9222',
     ];
-
-    if (process.env.CI) {
-      browserArgs.push("--disable-gpu");
+    if (process.env.CI != null) {
+      browserArgs.push('--disable-gpu');
     }
-
-    if (process.env.HEADLESS_MODE) {
-      browserArgs.push("--headless=new");
-    }
-
     // launch browser
-    const context = await chromium.launchPersistentContext("", {
+    const context = await chromium.launchPersistentContext('', {
       headless: false,
       args: browserArgs,
     });
-
     // wait for metamask
     await context.pages()[0].waitForTimeout(3000);
-
     // setup metamask
     await initialSetup(chromium, {
-      secretWordsOrPrivateKey:
-        "test test test test test test test test test test test junk",
-      network: "optimism",
-      password: "Tester@1234",
+      secretWordsOrPrivateKey: privateKey,
+      network,
+      password,
       enableAdvancedSettings: true,
+      enableExperimentalSettings: false,
     });
-
     await use(context);
-
     await context.close();
-
     await resetState();
   },
 });

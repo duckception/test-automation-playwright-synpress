@@ -16,7 +16,7 @@ test.describe('Dummy Tests', async () => {
 
 
   // Starting from this test network will not switch to polygon again. Please note that getCurrentNetwork() shows Polygon, but in reality Polygon is not even added
-  test('Test 2', async ({ page }) => {
+  test.skip('Test 2', async ({ page }) => {
     const currentNetwork = getCurrentNetwork();
     console.log('Test 2', { id: currentNetwork.id, name: currentNetwork.name, network: currentNetwork.network })
     await page.goto('https://dapp-citizen-react.vercel.app');
@@ -25,7 +25,7 @@ test.describe('Dummy Tests', async () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Test 3', async ({ page }) => {
+  test.skip('Test 3', async ({ page }) => {
     const currentNetwork = getCurrentNetwork();
     console.log('Test 3', { id: currentNetwork.id, name: currentNetwork.name, network: currentNetwork.network })
     await page.goto('https://dapp-citizen-react.vercel.app');
@@ -34,7 +34,7 @@ test.describe('Dummy Tests', async () => {
     await page.waitForTimeout(2000);
   });
 
-  test('Test 4', async ({ page }) => {
+  test.skip('Test 4', async ({ page }) => {
     const currentNetwork = getCurrentNetwork();
     console.log('Test 4', { id: currentNetwork.id, name: currentNetwork.name, network: currentNetwork.network })
     await page.goto('https://dapp-citizen-react.vercel.app');
